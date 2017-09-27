@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cym5240.pis"
+    android:versionCode="64"
+    android:versionName="@string/ver"
+     >
+    
+     <uses-feature android:name="android.hardware.camera"></uses-feature>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    
+    <uses-permission android:name="com.cym5240.pis.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- GCM 관련 퍼미션 -->
+    <permission
+        android:name="com.cym5240.pis.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- GCM 받기 -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- GCM을 받으려면 구글 계정 필요 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 메시지 받을 때 wake up 하기 위해 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" >
+    </uses-permission>
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:name="com.cym5240.pis.ModApplication"
+       android:largeHeap="true"
+         android:icon="@drawable/pis"
+        android:label="@string/app_name"
+        android:launchMode="singleTask"
+         android:allowBackup="true"
+         android:theme="@style/Theme.Favorite" >
+        
+      <!-- 메시지 받을 때 wake up 하기 위해 -->
+        <!-- 알림 서비스(시작) -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.cym5240.pis" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.cym5240.pis.GCMIntentService" />
+        <!-- 알림 서비스(끝) -->
+        <activity
+            android:name="com.cym5240.pis.introactivity"
+            android:theme="@android:style/Theme.NoTitleBar" 
+ 
+           >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+  
+            
+            
+        </activity>
+        
+        
+        <activity
+            android:name="com.cym5240.pis.MainActivity"
+            android:label="@string/title_activity_main">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="@string/kakao_scheme" android:host="@string/kakaolink_host" />
+            </intent-filter> 
+  			
+           </activity>
+        <activity
+            android:name="com.cym5240.pis.main2"
+            android:icon="@drawable/ic_launcher_simple"
+            android:screenOrientation="portrait" />
+         <activity
+            android:name="com.cym5240.pis.info"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/app_info" 
+           />
+         
+
+            <activity
+            android:name="com.cym5240.pis.setting"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/setting" 
+           />
+             <activity
+            android:name="com.cym5240.pis.GalleryView"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/photo" 
+           />
+               <activity
+            android:name="com.cym5240.pis.page.ProfileActivity"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/app_name" 
+              android:theme="@style/AppTheme.TranslucentActionBar" 
+           />
+               
+                          <activity
+            android:name="com.cym5240.pis.page.ProfileEdit"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/edit_profile" 
+           />
+                        <activity
+            android:name="com.cym5240.pis.page.ProfileInfo"
+            android:icon="@drawable/ic_launcher_simple"
+            android:label="@string/user_info" />
+                        
+                        
+                                           <activity
+            android:name="com.cym5240.pis.page.privacy_category"
+            android:icon="@drawable/ic_launcher_simple"
+            android:label="@string/privacy_content" />
+               
+               
+                     <activity
+            android:name="com.cym5240.pis.page.page_create"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/create_page" 
+           />
+                     
+                             <activity
+            android:name="com.cym5240.pis.page.document_write"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/write" 
+           />
+                     
+                     
+                     <activity
+            android:name="com.cym5240.pis.page.document_read"
+            android:icon="@drawable/ic_launcher_simple"
+             android:label="@string/app_name" 
+           />
+        
+         <activity
+            android:name="com.cym5240.pis.document_read"
+            android:icon="@drawable/ic_launcher_simple"
+            android:label="@string/app_info" />
+        <activity
+            android:name="com.cym5240.pis.start.welcome"
+             android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock.NoActionBar" />
+        <activity
+            android:name="com.cym5240.pis.tarks_account_login"
+            android:icon="@drawable/tarks_white"
+            android:label="@string/tarks_account"
+            android:theme="@style/Theme.Sherlock" />
+        <activity
+            android:name="com.cym5240.pis.start.join"
+            android:icon="@drawable/ic_launcher_simple"
+            android:label="@string/sign_up" />
+        
+            <activity
+            android:name="com.cym5240.pis.like.favorite_category"
+            android:icon="@drawable/ic_launcher_simple"
+            android:theme="@style/Theme.Favorite.Light.Dialog"
+            android:label="@string/add_favorite" />
+            
+        <activity
+            android:name="com.cym5240.pis.CropManager"
+            android:icon="@drawable/ic_launcher_simple"
+            android:label="@string/cut_image" />
+        
+          <meta-data android:name="com.google.android.maps.v2.API_KEY" 
+            android:value="here is your key"/> 
+ 
+         <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+         <activity android:name="com.cym5240.pis.actionbar"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+         
+         <activity android:name="com.cym5240.pis.actionbar2"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+
+           <activity android:name="com.cym5240.pis.actionbar3"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+           <activity android:name="com.cym5240.pis.actionbar4"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+            <activity android:name="com.cym5240.pis.actionbar5"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+            
+                        <activity android:name="com.cym5240.pis.actionbar6"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                        
+         <activity android:name="com.cym5240.pis.actionbar7"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+         
+         
+          <activity android:name="com.cym5240.pis.actionbar8"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+          
+           <activity android:name="com.cym5240.pis.actionbar9"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+           <activity android:name="com.cym5240.pis.actionbar10"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+           <activity android:name="com.cym5240.pis.actionbar11"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+           <activity android:name="com.cym5240.pis.actionbar12"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+           
+            <activity android:name="com.cym5240.pis.actionbar13"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+            
+            <activity android:name="com.cym5240.pis.actionbar14"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+            
+             <activity android:name="com.cym5240.pis.actionbar15"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+             
+             <activity android:name="com.cym5240.pis.actionbar16"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+             
+              <activity android:name="com.cym5240.pis.actionbar17"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar18"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar19"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar20"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar21"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar22"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar23"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.actionbar24"
+           		   android:theme="@style/AppTheme.TranslucentActionBar"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+              <activity android:name="com.cym5240.pis.MiniWebActivity"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+              
+                   <activity android:name="com.cym5240.pis.MiniWebActivity2"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                   
+                    <activity android:name="com.cym5240.pis.MiniWebActivity3"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                    
+                    <activity android:name="com.cym5240.pis.MiniWebActivity4"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                    
+                    <activity android:name="com.cym5240.pis.MiniWebActivity5"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                    
+                     <activity android:name="com.cym5240.pis.random"
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                    
+                     <activity
+            android:name="com.cym5240.pis.MainActivity2"
+            android:label="@string/app_name"
+            
+            android:theme="@style/Theme.Sherlock.NoActionBar" >   </activity>
+   
+                         <activity android:name="com.cym5240.pis.mountload"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                         
+                          <activity android:name="com.cym5240.web.websan"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan2"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan3"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan4"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan5"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan6"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan7"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan8"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan9"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan10"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan11"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan12"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan13"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan14"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan15"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan16"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan17"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan18"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan19"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan20"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan21"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan22"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan23"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan24"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan25"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan26"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan27"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan28"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan29"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          <activity android:name="com.cym5240.web.websan30"
+           		  
+           		   android:parentActivityName="com.cym5240.pis.mountload"></activity>
+                          
+                          <activity android:name="com.cym5240.pis.opensource"
+                              android:parentActivityName="com.cym5240.pis.MainActivity"></activity>
+                   
+                          
+                          
+                          
+           
+            
+     
+           
+         <meta-data
+            android:name="com.kakao.sdk.AppKey" android:value="@string/kakao_app_key" />
+         
+
+      
+         
+         
+    </application>
+
+</manifest>
